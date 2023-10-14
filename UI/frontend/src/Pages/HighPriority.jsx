@@ -3,6 +3,8 @@ import "../components/email.css";
 
 export default function HighPriority() {
   const [highPriorityEmails, setHighPriorityEmails] = useState({ Subject: {}, Message: {}, Priority: {} });
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     // Simulating the fetched data, replace this with your actual fetch logic
@@ -15,10 +17,13 @@ export default function HighPriority() {
           }
         });
         const data = await response.json();
+        // localStorage.setItem('data', data);
         // Assuming data[0] contains high-priority emails
         setHighPriorityEmails(data[0] || { Subject: {}, Message: {}, Priority: {} }); // Ensure it's an object or set to an empty object by default
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data: ', error);
+        setIsLoading(false);
       }
     };
 
@@ -38,7 +43,13 @@ export default function HighPriority() {
 
   return (
     <div className="gmail">
-      {subjects.map((subject, index) => (
+      
+{isLoading? <div className="spinner"> <div className="custom-spinner "></div> </div> : (
+  
+
+
+
+      subjects.map((subject, index) => (
         <div className="gmail-card" key={index}>
           <div className="gmail-card-header">
             <div className="gmail-sender">{subject}</div>
@@ -48,7 +59,8 @@ export default function HighPriority() {
             <p>{messages[index]}</p>
           </div>
         </div>
-      ))}
+      )))}
+              
     </div>
   );
 }

@@ -1,6 +1,8 @@
 /* Gmail Card Container */
 .gmail{
   margin-left: 200px;
+  
+
 }
 .gmail-card {
     border: 1px solid #e5e5e5;
@@ -83,4 +85,29 @@ nav {
   }
   
   /* Style for Navbar */
-    
+    /* Your custom CSS file (e.g., styles.css) */
+.custom-spinner {
+  display: inline-flex;
+  width: 3rem; /* Corresponds to 'w-12' in Tailwind CSS */
+  height: 3rem; /* Corresponds to 'h-12' in Tailwind CSS */
+  border-top: 0.5rem solid #000; /* Corresponds to 'border-t-2' in Tailwind CSS */
+  border-bottom: 0.5rem solid #000; /* Corresponds to 'border-b-2' in Tailwind CSS */
+  border-left: 0.5rem solid transparent; /* For a circular shape */
+  border-right: 0.5rem solid transparent; /* For a circular shape */
+  animation: spin 2s linear infinite; /* Corresponds to 'animate-spin' in Tailwind CSS */
+  border-radius: 50%; /* Corresponds to 'rounded-full' in Tailwind CSS */
+  background-color: transparent;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spinner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+  padding-top: 30%;
+}

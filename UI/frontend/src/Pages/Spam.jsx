@@ -3,23 +3,25 @@ import "../components/email.css";
 
 export default function Spam() {
   const [SpamEmails, setSpamEmails] = useState({ Subject: {}, Message: {} });
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // Simulating the fetched data, replace this with your actual fetch logic
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/', {
-          method: 'GET',
+        const response = await fetch("http://127.0.0.1:8000/", {
+          method: "GET",
           headers: {
-            'accept': 'application/json'
-          }
+            accept: "application/json",
+          },
         });
         const data = await response.json();
-        
+
         setSpamEmails(data[3] || { Subject: {}, Message: {} }); // Ensure it's an object or set to an empty object by default
         // console.log(data.Priority);
+        setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching data: ', error);
+        console.error("Error fetching data: ", error);
+        setIsLoading(false);
       }
     };
 
@@ -38,17 +40,24 @@ export default function Spam() {
   // });
   return (
     <div className="gmail">
-      {subjects.map((subject, index) => (
-        <div className="gmail-card" key={index}>
-          <div className="gmail-card-header">
-            <div className="gmail-sender">{subject}</div>
-            <div className="gmail-subject" style={{"color":"red"}}>spam</div>
-          </div>
-          <div className="gmail-card-body">
-            <p>{messages[index]}</p>
-          </div>
+      {isLoading ? (
+        <div className="spinner">
+          {" "}
+          <div className="custom-spinner "></div>{" "}
         </div>
-      ))}
+      ) : (
+        subjects.map((subject, index) => (
+          <div className="gmail-card" key={index}>
+            <div className="gmail-card-header">
+              <div className="gmail-sender">{subject}</div>
+              <div className="gmail-subject">{priority[index]}</div>
+            </div>
+            <div className="gmail-card-body">
+              <p>{messages[index]}</p>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }
